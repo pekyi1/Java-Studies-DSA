@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class StudentManager {
     private Student[] students;
     private int studentCount;
@@ -10,8 +12,14 @@ public class StudentManager {
     public void addStudent(Student student) {
         if (studentCount < students.length) {
             students[studentCount++] = student;
-            System.out
-                    .println("Student added successfully: " + student.getName() + " (" + student.getStudentId() + ")");
+            System.out.println("\n-> Student added successfully!");
+            System.out.println("  Student ID: " + student.getStudentId());
+            System.out.println("  Name: " + student.getName());
+            System.out.println("  Type: " + student.getStudentType());
+            System.out.println("  Age: " + student.getAge());
+            System.out.println("  Email: " + student.getEmail());
+            System.out.printf("  Passing Grade: %.0f%%%n", student.getPassingGrade());
+            System.out.println("  Status: " + student.getStatus());
         } else {
             System.out.println("Cannot add student. Maximum capacity reached.");
         }
@@ -31,14 +39,22 @@ public class StudentManager {
             System.out.println("No students found.");
             return;
         }
-        System.out.println("\n--- Student List ---");
+        System.out.println("\nSTUDENT LISTING");
+        System.out.println("__________________________________________________________________________________");
+        System.out.printf("%-8s | %-15s | %-10s | %-9s | %-10s%n", "STU ID", "NAME", "TYPE", "AVG GRADE", "STATUS");
+        System.out.println("__________________________________________________________________________________");
+
         for (int i = 0; i < studentCount; i++) {
             double avg = gm.calculateOverallAverage(students[i].getStudentId());
-            students[i].displayStudentDetails(avg);
-            System.out.println("--------------------");
+            int enrolledSubjects = gm.getEnrolledSubjectCount(students[i].getStudentId());
+            students[i].displayStudentDetails(avg, enrolledSubjects);
+            System.out.println("__________________________________________________________________________________");
         }
-        System.out.println("Total Students: " + studentCount);
-        System.out.println("Average Class Grade: " + getAverageClassGrade(gm));
+        System.out.println("\nTotal Students: " + studentCount);
+        System.out.printf("Average Class Grade: %.1f%%%n", getAverageClassGrade(gm));
+
+        System.out.println("\nPress Enter to continue...");
+        new Scanner(System.in).nextLine();
     }
 
     public double getAverageClassGrade(GradeManager gm) {

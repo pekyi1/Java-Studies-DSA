@@ -9,7 +9,7 @@ public class App {
         boolean running = true;
         while (running) {
             printMenu();
-            int choice = getIntInput("Enter your choice: ");
+            int choice = getIntInput("Enter choice: ");
 
             switch (choice) {
                 case 1:
@@ -26,7 +26,7 @@ public class App {
                     break;
                 case 5:
                     running = false;
-                    System.out.println("Exiting application. Goodbye!");
+                    System.out.println("Thank you for using the Student Grade Management System. Goodbye!");
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
@@ -36,25 +36,28 @@ public class App {
     }
 
     private static void printMenu() {
-        System.out.println("\n=== Student Grade Management System ===");
+        System.out.println("\nSTUDENT GRADE MANAGEMENT SYSTEM");
+        System.out.println("__________________________________________________________________________________");
         System.out.println("1. Add Student");
         System.out.println("2. View Students");
         System.out.println("3. Record Grade");
         System.out.println("4. View Grade Report");
         System.out.println("5. Exit");
+        System.out.println("__________________________________________________________________________________");
     }
 
     private static void addNewStudent() {
-        System.out.println("\n--- Add New Student ---");
-        String name = getStringInput("Enter Name: ");
-        int age = getIntInput("Enter Age: ");
-        String email = getStringInput("Enter Email: ");
-        String phone = getStringInput("Enter Phone: ");
+        System.out.println("\nADD STUDENT");
+        System.out.println("__________________________________________________________________________________");
+        String name = getStringInput("Enter student name: ");
+        int age = getIntInput("Enter student age: ");
+        String email = getStringInput("Enter student email: ");
+        String phone = getStringInput("Enter student phone: ");
 
-        System.out.println("Select Student Type:");
-        System.out.println("1. Regular");
-        System.out.println("2. Honors");
-        int typeChoice = getIntInput("Enter choice (1/2): ");
+        System.out.println("\nStudent type:");
+        System.out.println("1. Regular Student (Passing grade: 50%)");
+        System.out.println("2. Honors Student (Passing grade: 60%, honors recognition)");
+        int typeChoice = getIntInput("\nSelect type (1-2): ");
 
         Student student;
         if (typeChoice == 1) {
@@ -67,10 +70,13 @@ public class App {
         }
 
         studentManager.addStudent(student);
+        System.out.println("\nPress Enter to continue...");
+        scanner.nextLine();
     }
 
     private static void recordGrade() {
-        System.out.println("\n--- Record Grade ---");
+        System.out.println("\nRECORD GRADE");
+        System.out.println("__________________________________________________________________________________");
         String studentId = getStringInput("Enter Student ID: ");
         Student student = studentManager.findStudent(studentId);
 
@@ -79,37 +85,93 @@ public class App {
             return;
         }
 
-        System.out.println("Select Subject Type:");
-        System.out.println("1. Core");
-        System.out.println("2. Elective");
-        int subjectTypeChoice = getIntInput("Enter choice (1/2): ");
+        System.out.println("\nStudent Details:");
+        System.out.println("Name: " + student.getName());
+        System.out.println("Type: " + student.getStudentType() + " Student");
+        System.out.printf("Current Average: %.1f%%%n", gradeManager.calculateOverallAverage(studentId));
+
+        System.out.println("\nSubject type:");
+        System.out.println("1. Core Subject (Mathematics, English, Science)");
+        System.out.println("2. Elective Subject (Music, Art, Physical Education)");
+        int subjectTypeChoice = getIntInput("\nSelect type (1-2): ");
 
         Subject subject;
-        String subjectName = getStringInput("Enter Subject Name: ");
-        String subjectCode = getStringInput("Enter Subject Code: ");
+        String subjectName = "";
+        String subjectCode = "";
 
         if (subjectTypeChoice == 1) {
+            System.out.println("\nAvailable Core Subjects:");
+            System.out.println("1. Mathematics");
+            System.out.println("2. English");
+            System.out.println("3. Science");
+            int subjectChoice = getIntInput("\nSelect subject (1-3): ");
+            switch (subjectChoice) {
+                case 1:
+                    subjectName = "Mathematics";
+                    subjectCode = "MAT101";
+                    break;
+                case 2:
+                    subjectName = "English";
+                    subjectCode = "ENG101";
+                    break;
+                case 3:
+                    subjectName = "Science";
+                    subjectCode = "SCI101";
+                    break;
+                default:
+                    System.out.println("Invalid subject choice.");
+                    return;
+            }
             subject = new CoreSubject(subjectName, subjectCode);
         } else if (subjectTypeChoice == 2) {
+            System.out.println("\nAvailable Elective Subjects:");
+            System.out.println("1. Music");
+            System.out.println("2. Art");
+            System.out.println("3. Physical Education");
+            int subjectChoice = getIntInput("\nSelect subject (1-3): ");
+            switch (subjectChoice) {
+                case 1:
+                    subjectName = "Music";
+                    subjectCode = "MUS101";
+                    break;
+                case 2:
+                    subjectName = "Art";
+                    subjectCode = "ART101";
+                    break;
+                case 3:
+                    subjectName = "Physical Education";
+                    subjectCode = "PE101";
+                    break;
+                default:
+                    System.out.println("Invalid subject choice.");
+                    return;
+            }
             subject = new ElectiveSubject(subjectName, subjectCode);
         } else {
             System.out.println("Invalid subject type. Grade not recorded.");
             return;
         }
 
-        double gradeValue = getDoubleInput("Enter Grade (0-100): ");
+        double gradeValue = getDoubleInput("\nEnter grade (0-100): ");
 
         try {
             Grade grade = new Grade(studentId, subject, gradeValue);
-            // Confirmation
-            System.out.println("Confirm Grade Entry:");
-            System.out.println("Student: " + student.getName());
-            System.out.println("Subject: " + subjectName);
-            System.out.println("Grade: " + gradeValue);
-            String confirm = getStringInput("Confirm (y/n): ");
+
+            System.out.println("\nGRADE CONFIRMATION");
+            System.out.println("__________________________________________________________________________________");
+            System.out.println("Grade ID: " + grade.getGradeID());
+            System.out.println("Student: " + studentId + " - " + student.getName());
+            System.out.println("Subject: " + subjectName + " (" + subject.getSubjectType() + ")");
+            System.out.printf("Grade: %.1f%%%n", gradeValue);
+            System.out.println("Date: " + grade.getDate());
+            System.out.println("__________________________________________________________________________________");
+
+            String confirm = getStringInput("\nConfirm grade? (Y/N): ");
 
             if (confirm.equalsIgnoreCase("y")) {
                 gradeManager.addGrade(grade);
+                System.out.println("\nPress Enter to continue...");
+                scanner.nextLine();
             } else {
                 System.out.println("Grade recording cancelled.");
             }
@@ -119,8 +181,9 @@ public class App {
     }
 
     private static void viewGradeReport() {
-        System.out.println("\n--- View Grade Report ---");
-        String studentId = getStringInput("Enter Student ID: ");
+        System.out.println("\nVIEW GRADE REPORT");
+        System.out.println("__________________________________________________________________________________");
+        String studentId = getStringInput("\nEnter Student ID: ");
         Student student = studentManager.findStudent(studentId);
 
         if (student == null) {
@@ -128,7 +191,7 @@ public class App {
             return;
         }
 
-        gradeManager.viewGradesByStudent(studentId);
+        gradeManager.viewGradesByStudent(student);
     }
 
     private static String getStringInput(String prompt) {

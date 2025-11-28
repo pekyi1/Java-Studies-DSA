@@ -1,31 +1,26 @@
 public class RegularStudent extends Student {
     private final double passingGrade = 50.0;
 
-    public RegularStudent(String name, int age, String email, String phone){
-        super(name, age,email,phone);
+    public RegularStudent(String name, int age, String email, String phone) {
+        super(name, age, email, phone, "Active");
     }
 
     @Override
-    public displayStudentDetails(double currentAverage){
-        System.out.println("-----The Students details are below-----\n");
-        System.out.println("Student ID" + getStudentId());
-        System.out.println("Name: " + getName());
-        System.out.println("Sudent type: " + getStudentType());
-        System.out.println("Average grade: " + currentAverage);
-        System.out.println("Passing student: " + (isPassing(currentAverage) ? "Yes" : "No"));
-        System.out.println("Student Status: " + getStatus());
+    public void displayStudentDetails(double currentAverage, int enrolledSubjects) {
+        System.out.printf("%-8s | %-15s | %-10s | %-8.1f%% | %-10s%n",
+                getStudentId(), getName(), getStudentType(), currentAverage, getStatus());
+        System.out.printf("         | Enrolled Subjects: %-2d | Passing Grade: %.0f%%%n",
+                enrolledSubjects, getPassingGrade());
     }
 
     @Override
-    public getStudentType(){
+    public String getStudentType() {
         return "Regular";
     }
 
     @Override
-    public getPassingGrade(){
+    public double getPassingGrade() {
         return passingGrade;
     }
-
-
 
 }
