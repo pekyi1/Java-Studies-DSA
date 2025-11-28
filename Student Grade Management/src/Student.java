@@ -8,7 +8,7 @@ public abstract class Student {
     private static int studentCounter = 1;
 
     public Student(String name, int age, String email, String phone, String status) {
-        this.studentId = "STU" + studentCounter++;
+        this.studentId = String.format("STU%03d", studentCounter++);
         this.name = name;
         this.age = age;
         this.email = email;
@@ -44,7 +44,7 @@ public abstract class Student {
         this.status = status;
     }
 
-    public abstract void displayStudentDetails();
+    public abstract void displayStudentDetails(double currentAverage, int enrolledSubjects);
 
     public abstract String getStudentType();
 

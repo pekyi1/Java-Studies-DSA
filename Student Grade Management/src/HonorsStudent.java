@@ -1,23 +1,23 @@
 public class HonorsStudent extends Student {
-    private final double passingGrade = 60.0;
+    private double passingGrade = 60.0;
     private boolean honorsEligible;
 
     public HonorsStudent(String name, int age, String email, String phone) {
-        super(name, age, email, phone);
-        this.honorsEligible = false; // Default
+        super(name, age, email, phone, "Active");
+        this.honorsEligible = false;
     }
 
     @Override
-    public void displayStudentDetails(double currentAverage) {
-        System.out.println("Student ID: " + getStudentId());
-        System.out.println("Name: " + getName());
-        System.out.println("Type: " + getStudentType());
-        System.out.println("Status: " + getStatus());
-        System.out.println("Average Grade: " + currentAverage);
-        System.out.println("Passing: " + (isPassing(currentAverage) ? "Yes" : "No"));
-        System.out.println("Passing Grade: " + getPassingGrade());
+    public void displayStudentDetails(double currentAverage, int enrolledSubjects) {
         checkHonorsEligibility(currentAverage);
-        System.out.println("Honors Eligible: " + (honorsEligible ? "Yes" : "No"));
+        String status = getStatus();
+        if (honorsEligible) {
+            status += " | Honors Eligible";
+        }
+        System.out.printf("%-8s | %-15s | %-10s | %-8.1f%% | %-10s%n",
+                getStudentId(), getName(), getStudentType(), currentAverage, status);
+        System.out.printf("         | Enrolled Subjects: %-2d | Passing Grade: %.0f%% | %s%n",
+                enrolledSubjects, getPassingGrade(), honorsEligible ? "Honors Eligible" : "");
     }
 
     @Override
