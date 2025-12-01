@@ -23,17 +23,9 @@ public class Main {
 
 
     public static void main(String[] args) {
-        int[][] matrix1 = {
-                {1, 5, 9, 11},
-                {14, 20, 21, 26},
-                {30, 34, 43, 50}
-        };
-        int[][] matrix2 = {
-                {1, 5, 9, 11},
-                {14, 20, 21, 26},
-                {30, 34, 43, 50}
-        };
-        System.out.println(Arrays.deepToString(MatrixAddition.addMatrix(matrix1, matrix2)));
-
+       int[] arr = {1, 2, 3, 4, 5};
+       int k = 2;
+       int[] rotatedArray = ArrayRotation.rotationUsingExtraSpace(arr, k);
+       System.out.println(Arrays.toString(rotatedArray));
     }
 }
