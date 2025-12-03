@@ -10,12 +10,13 @@ public class HonorsStudent extends Student {
     @Override
     public void displayStudentDetails(double currentAverage, int enrolledSubjects) {
         checkHonorsEligibility(currentAverage);
-        String status = getStatus();
         if (honorsEligible) {
-            status += " | Honors Eligible";
+            setStatus(getStatus() + "| Honors");
+        }else{
+            setStatus(getStatus().replace("| Honors", ""));
         }
         System.out.printf("%-8s | %-15s | %-10s | %-8.1f%% | %-10s%n",
-                getStudentId(), getName(), getStudentType(), currentAverage, status);
+                getStudentId(), getName(), getStudentType(), currentAverage, getStatus());
         System.out.printf("         | Enrolled Subjects: %-2d | Passing Grade: %.0f%% | %s%n",
                 enrolledSubjects, getPassingGrade(), honorsEligible ? "Honors Eligible" : "");
     }

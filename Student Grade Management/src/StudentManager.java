@@ -18,6 +18,7 @@ public class StudentManager {
             System.out.println("  Type: " + student.getStudentType());
             System.out.println("  Age: " + student.getAge());
             System.out.println("  Email: " + student.getEmail());
+            System.out.println("  Phone: " + student.getPhone());
             System.out.printf("  Passing Grade: %.0f%%%n", student.getPassingGrade());
             System.out.println("  Status: " + student.getStatus());
         } else {
