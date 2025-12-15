@@ -1,0 +1,44 @@
+{
+  "name": "Head Office",
+  "interns": null,
+  "managers": null,
+  "subDepartments": [
+    {
+      "name": "Marketing",
+      "interns": [
+        55,
+        12
+      ],
+      "managers": [
+        601,
+        602,
+        603
+      ],
+      "subDepartments": []
+    },
+    {
+      "name": "Tech",
+      "interns": [
+        99
+      ],
+      "managers": [
+        700,
+        750,
+        800
+      ],
+      "subDepartments": [
+        {
+          "name": "Tech Support",
+          "interns": [],
+          "managers": [
+            80,
+            85,
+            88,
+            90
+          ],
+          "subDepartments": []
+        }
+      ]
+    }
+  ]
+}
