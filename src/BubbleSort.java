@@ -1,43 +1,44 @@
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
+
 public class BubbleSort {
 
-    // Method to compute the minimum final length
     public static int minimumFinalLength(int[] nums) {
-        int minRight = Integer.MAX_VALUE;
-        int keep = nums.length;
-
-        // Traverse from right to left
-        for (int i = nums.length - 1; i >= 0; i--) {
-            if (nums[i] > minRight) {
-                // This element will cause swaps and be removed
-                keep = i;
-            } else {
-                minRight = nums[i];
-            }
+        // Copy nums into a mutable list
+        List<Integer> arr = new ArrayList<>();
+        for (int num : nums) {
+            arr.add(num);
         }
-        return keep;
+
+        while (true) {
+            boolean swapped = false;
+
+            // One full bubble pass
+            for (int i = 0; i < arr.size() - 1; i++) {
+                if (arr.get(i) > arr.get(i + 1)) {
+                    int temp = arr.get(i);
+                    arr.set(i, arr.get(i + 1));
+                    arr.set(i + 1, temp);
+                    swapped = true;
+                }
+            }
+
+            // If no swaps, array is sorted → stop
+            if (!swapped) {
+                break;
+            }
+
+            // Remove the last element after a successful pass
+            arr.remove(arr.size() - 1);
+        }
+
+        return arr.size();
     }
 
     public static void main(String[] args) {
-        int[] nums1 = {3, 1, 2};
-        int[] nums2 = {4, 2, 1, 3};
-        int[] nums3 = {1, 2, 3, 4};
-        int[] nums4 = {5, 4, 3, 2, 1};
-
-        System.out.println("Input: " + Arrays.toString(nums1));
-        System.out.println("Final Length: " + minimumFinalLength(nums1));
-        System.out.println();
-
-        System.out.println("Input: " + Arrays.toString(nums2));
-        System.out.println("Final Length: " + minimumFinalLength(nums2));
-        System.out.println();
-
-        System.out.println("Input: " + Arrays.toString(nums3));
-        System.out.println("Final Length: " + minimumFinalLength(nums3));
-        System.out.println();
-
-        System.out.println("Input: " + Arrays.toString(nums4));
-        System.out.println("Final Length: " + minimumFinalLength(nums4));
+        System.out.println(minimumFinalLength(new int[]{3, 1, 2}));      // 2
+        System.out.println(minimumFinalLength(new int[]{4, 2, 1, 3}));   // 2
+        System.out.println(minimumFinalLength(new int[]{1, 2, 3, 4}));   // 4
+        System.out.println(minimumFinalLength(new int[]{5, 4, 3, 2, 1}));// 1
     }
-
 }
